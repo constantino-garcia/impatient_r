@@ -5,7 +5,7 @@ This document is intended to provide a quick (yet complete!) overview of the `R`
 ## How to use it
 There are two main files:
 
-* The `impatient_r.html` file. If you are an absolute beginner, just use this file. Download it to your computer and then open it with your favorite browser.
+* The `impatient_r.html` file. If you are an absolute beginner, just use this file. Download it to your computer and then open it with your favorite browser, or just use [this link](http://htmlpreview.github.io/?https://github.com/constantino-garcia/impatient_r/blob/master/impatient_r.html).
 * The `impatient_r.Rmd` file. If you don't know what it is, don't worry. Rmd stands for R Markdown, a very cool framework that permits to combine R code with Markdown. Indeed, the `impatient_r.html` file has been generated with the `impatient_r.Rmd` file! In summary:
   * If you know how to handle .Rmd files, use `impatient_r.Rmd` for learning.
   * If you don't, just use the .html file and then learn about R Markdown. See, for example, [this tutorial](https://rmarkdown.rstudio.com/lesson-1.html).
