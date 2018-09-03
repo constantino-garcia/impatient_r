@@ -1,0 +1,9 @@
+This file was generated on 20/08/2018
+
+num  log   lett
+1   TRUE    a
+2   FALSE   b
+3   TRUE    c
+~ These two rows are very interesting
+4   FALSE   d
+5   TRUE    e
