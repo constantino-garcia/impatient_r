@@ -1,7 +1,7 @@
 ---
 title: "R for the impatient"
 author: "Constantino A. García"
-date: "20 August 2018"
+date: "28 August 2019"
 output: 
   html_document: 
     keep_md: yes
@@ -14,8 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This document is intended to provide a quick (yet complete!) overview of the 
 `R` language, so you can get started with it as soon as possible. No 
-chit-chatting, just the basics, code and comments! Oh well, we will give some details 
-concerning the first steps; and sometimes we will link to useful
+chit-chatting, just the basics: code, comments and exercises! Oh well, we will give some details concerning the first steps; and sometimes we will link to useful
 resources, just in case you really want to go deeper into some topic ...
 
 # Getting `R`
@@ -31,7 +30,7 @@ are thousands of great Howtos much better than I could ever write.
 
 `RStudio` is an IDE that makes R easier to use. It includes a code editor, 
 debugging & visualization tools. You may not install it (or install other 
-IDE), but a highly recommend it. Go to the 
+IDE), but I highly recommend it. Go to the 
 [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download)
 and find the installer for your operating system. The installation should be 
 straightforward. If not, (you guessed it) Google it!
@@ -70,8 +69,8 @@ figure:
 <div style="text-align:center"><img src =figure/rstudio_edited.png /></div>\ 
 
 Although the best way to learn it is just using it I would recommend to 
-to spend a few minutes looking around. Specially, have a look to `
-tools > global options`. Also, you may find helpful this
+to spend a few minutes looking around. Specially, have a look to 
+`tools > global options`. Also, you may find helpful this
 [webinar series](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-part-1/). 
 
 # An overgrown calculator
@@ -82,8 +81,8 @@ enough, but careful! Read the comments!
 ```{r calculator, results='hide'}
 1 + 2
 1         +         2    # Spaces don't matter
-1 +                      # Incomplete commands can occupy several lines. In the console,
-  2                      # the usual letter > is replaced by + to indicate an incomplete command.
+1 +                      # Incomplete commands can occupy several lines. In the console, the
+  2                      # usual letter > is replaced by + to indicate an incomplete command.
 (3 + 2 * 2 ) / 4         # Usual operations
 2 ^ 3; 5 %% 2; 5 %/% 2   # Separate commands with ; => exponents; modulo; integer division
 exp(0); cos(pi); sin(0)  # There are also common math-functions here
@@ -153,29 +152,29 @@ while. First, let's create some vectors.
 ```{r vectorized}
 # Vector creation:
 ## The following three are equivalent: 
-a = c(1, 2, 3, 4, 5)          # Create a vector with c (c from concatenate)
-b = 1:5                       # 1:5 generates sequence of numbers from 1 to 5...
-d = seq(1, 5)                 # ... which is equivalent to seq(1, 5)
+a <- c(1, 2, 3, 4, 5)          # Create a vector with c (c from concatenate)
+b <- 1:5                       # 1:5 generates sequence of numbers from 1 to 5...
+d <- seq(1, 5)                 # ... which is equivalent to seq(1, 5)
 
 ## This 4 are not equivalent, but are useful ;)
-e = c()                       # An empty vector
-f = seq(1, 5, by = 2)         # Move in steps of 2 to generate c(1, 3, 5) ...
-g = seq(1, 5, length.out = 2) # or ask for a length and let R calculate the step size
-h = rep(3, 5)                 # repeat three five times
+e <- c()                       # An empty vector
+f <- seq(1, 5, by = 2)         # Move in steps of 2 to generate c(1, 3, 5) ...
+g <- seq(1, 5, length.out = 2) # or ask for a length and let R calculate the step size
+h <- rep(3, 5)                 # repeat three five times
 
 # We can concatenate vectors to create larger ones
 c(e, f)                       # empty vector + f
 c(g, h)
 
 # Random vectors
-j = runif(3)                  # you can also generate random vectors from uniform ...
-k = rnorm(3)                  # ... or Gaussian distributions.
+j <- runif(3)                  # you can also generate random vectors from uniform ...
+k <- rnorm(3)                  # ... or Gaussian distributions.
 
 # We can have a vector with some missing observations
-l = c(1, 2, NA, 4)
+l <- c(1, 2, NA, 4)
 
 # We can find the length of each vector with length
-cat("A has length", length(a), "\n")
+cat("a has length", length(a), "\n")
 ```
 
 What about the *vectorized function* thing? In a nutshell, a function `f` is 
@@ -266,6 +265,19 @@ your system terminal.
 From now on, I would recommend to work on the `RStudio` editor to don't lose
 work.
 
+## Programming Challenges (I)
+
+* Make a numeric vector that repeats the sequence of even numbers between 
+1 and 10 two times, with each number repeated three times. Use `rep` and `seq` for the solution. You may have to consult the R help. The expected output is:
+`2  2  2  4  4  4  6  6  6  8  8  8 10 10 10  2  2  2  4  4  4  6  6  6
+8  8  8 10 10 10`.
+* Plot the functions sine and a cosine for $x = [0, 2 \pi]$ in the same figure.
+Use different colors for each function.
+* What's the output of `c(1, 3, 5, 7) + c(3, -2)`? And `c(2, 4, 1) * 3`? Try
+to answer before testing it on the console.
+* Gauss is known for solving the following problem in a few seconds. "Write down all the whole numbers from 1 to 100 and add up their sum". Do the same, storing
+the numbers in the variable `numbers` and summing them with a function.
+
 # Beyond numbers: data types
 Maths are cool, but we surely want to deal with something else than numbers. 
 In this section we briefly review the main data types. For a more detailed 
@@ -275,15 +287,15 @@ exposition, see this [Datacamp free course](https://www.datacamp.com/courses/fre
 This is one of those concepts that are better explained with an example. In 
 `R`, some of the basic data types are:
 ```{r}
-x = 4.5                          # We have decimal values, called "numerics"
-y = 4                            # Integers, which are actually treated as "numerics"
-w = TRUE                         # "logical" values. Change it to be FALSE
-z = "This text is stupid"        # "character" values.
+x <- 4.5                          # We have decimal values, called "numerics"
+y <- 4                            # Integers, which are actually treated as "numerics"
+w <- TRUE                         # "logical" values. Change it to be FALSE
+z <- "This text is stupid"        # "character" values.
 ```
 
 ```{r}
 # You can check the data type using the class function:
-my_classes = c(class(x), class(w), class(z))
+my_classes <- c(class(x), class(w), class(z))
 print(my_classes)        
 ```
 ```{r, results='hide'}
@@ -291,7 +303,7 @@ print(my_classes)
 print(class(c(1, 2, 3)))
 # ... and this is "logical" too
 print(class(c(TRUE, FALSE)))
-# ... and this is "character" (check them!)
+# ... and this is "character" (check this results on your own!)
 print(class(my_classes))
 ```
 
@@ -325,8 +337,8 @@ Although data types are important, `R` is a **dynamically typed** language, whic
 means that we can assign anything to a  variable, not matter its past values:
 
 ```{r, eval=FALSE}
-x = 4.5         # x is a "numeric" ...
-x = TRUE        # ... now it is not!
+x <- 4.5         # x is a "numeric" ...
+x <- TRUE        # ... now it is not!
 ```
 
 We already have some experience with "numerics",
@@ -368,7 +380,7 @@ c(any(c(TRUE, TRUE, FALSE,FALSE)), any(c(FALSE, FALSE, FALSE,FALSE)))
 #### characters
 
 ```{r characters}
-beautiful = "E = mc^2" 
+beautiful <- "E = mc^2" 
 class(beautiful)                          # "character"
 # there is no difference between ' and "
 beautiful == 'E = mc^2'                   # yields TRUE
@@ -395,14 +407,37 @@ For example `?plot.default` shows that some default argument values are `NULL`
 
 These are the basics of data types. Not bad! but `R` has much more to offer.
 
+## Programming Challenges (II)
+* If `x <- c(TRUE, TRUE, FALSE, FALSE)` and `y <- c(TRUE, FALSE)`, what's the
+output of `x & y`? and `x && y`? Try to predict the outputs before testing them.
+* Imagine you have the vector `x <- c(5, 1, 8, 9, 15, 1, 24, 2, 14, 3)` and you
+want to find out how many values are greater or equal than 9. Proceed as
+follows: 
+    1. The operator `>` is vectorized, so you can directly ask `x > 9` in the 
+console. Try to predict the output before actually executing it.
+    2. Cast the result from the previous step to numeric values. Again, try to 
+    predict the output before executing it.
+    3. Use `sum` to compute the final answer.
+    4. If you didn't, try to express all the previous code in a single line!
+* What's the output of `(!TRUE || (3 <= 4) ) && (5 %in% 1:10)`?
+* `(TRUE + TRUE) * FALSE`, what does this expression evaluate to and why?
+* If `fn <- "James"` and `ln <- "Bond"`, write code to produce as output 
+`"Bond, James Bond"`. You can only use `fn` and `ln`. Pay attention to the comma!
+* Use `paste` to generate the output `5 Mississippi, 10 Mississipi, ..., 50 Mississipi` (Note that we are only using multiples of 5!).
+* Consider `names <- c('Torvalds', 'Gauss', 'Einstein')` and 
+`jobs <- c('Computer Scientist', 'Mathematician', 'Physicist')`. Write code
+to get the exact output 
+`Torvalds is a Computer Scientist, Gauss is a Mathematician, Einstein is a Physicist'`.
 
 ## Vectors (again)
 Vectors are the basic data types in `R`. Indeed, numeric, character and 
 logical are the three flavors of the vectors in `R`. Let's overview some 
-common operations for vector:
+common operations for vectors:
 
 ```{r vectors}
-set.seed(10)
+# Set seed is useful for obtaining the same results when using random
+# functions like sample (see below)
+set.seed(1)
 # Imagine the following class... It seems that Hans didn't take the exam, so its
 # grade is a NA.
 students <- c("John", "Albert", "Maria", "Lisa", "Hans")
@@ -430,7 +465,7 @@ students[-(1:2)]           #  All elements but the two first ones
 head(grades, 3)             # The first three values
 head(grades, -3)            # All but the last three values
 tail(grades, 3)             # The last thee values
-tail(grades, -3)            # All but the last three values
+tail(grades, -3)            # All but the first three values
 ```
 
 Logical conditions can also be used for indexing:
@@ -453,6 +488,16 @@ cat("The mean age is: ", mean(age[grades > 5 & !is.na(grades)]), "\n")
 "Hans" %in% names(grades[!is.na(grades)])
 ```
 
+## Programming Challenges (III)
+* Consider the vector  `x <- c(1,0,-3, NA, NaN, -Inf, 4)`, What is the value of
+`(x+2)[!is.na(x) & (x > 0)]`?
+* Which values of the previous vector `x` fulfilling that the exponential of `x`
+is greater than 0.1?
+* Given `x <- c(6, 7, 1, 9, 5, 10, 8, 4, 2, 3)`, create a new vector `y` by
+eliminating the first 2 numbers and the last 2 numbers. Now sum the first three
+numbers of `y` with the second set of three numbers from `y`. The expected
+output is `11 17 9`.
+* If `x <- c(2, 4, 6, 8)` and `y <- c(TRUE, FALSE, TRUE, FALSE)`, what will be the output for the R expression `max(x[y])`? 
 
 ## Matrices
 Matrices are a generalization of vectors to 2D. Just like with `R` vectors, they
@@ -491,9 +536,9 @@ cat(dim(grades_mat))
 
 # We can slice the matrix to get submatrices. If we have named the rows and 
 # columns, we can used both indices or names.
-cat(grades_mat[, "algebra"], "==", grades_mat[, 1])         # By columns: the grades from algebra
-cat(grades_mat[3, ], "==", grades_mat["Maria", ])           # By rows: the grades of Maria
-cat(grades_mat[3, 1], "==", grades_mat["Maria", "algebra"]) # Both: the grades of Maria in algebra
+cat(grades_mat[, "algebra"], "==", grades_mat[, 1])  # By columns: grades from algebra
+cat(grades_mat[3, ], "==", grades_mat["Maria", ])           # By rows: grades of Maria
+cat(grades_mat[3, 1], "==", grades_mat["Maria", "algebra"]) # Both: grades of Maria in algebra
 
 # We can also use vectors when indexing
 grades_mat[2:3, 1:2]                 # only the grades of Albert and Maria
@@ -523,6 +568,32 @@ apply(grades_mat, MARGIN = 2, FUN = min)
 After knowing about the existence of matrices, you may interested in Algebra
 with `R` (Who isn't? determinants, inverses, eigenvalues, etc). Of course, it is possible!
 See [Linear Algebra in R](https://www.math.uh.edu/~jmorgan/Math6397/day13/LinearAlgebraR-Handout.pdf).
+
+## Programming Challenges (IV)
+* Create the matrix $\begin{bmatrix}
+2 & 4 & 3\\
+1 & 5 & 7
+\end{bmatrix}$ using the `matrix` function.
+* Create a grades matrix named `grades` for the following data: 
+`students <- c("Sven", "Otto", "Hedda", "Hilda")`,
+`algebra_grades <- sample(1:10, 4, replace = TRUE)`,
+`programming_grades <- sample(1:10, 4, replace = TRUE)` and
+`calculus_grades <- sample(1:10, 4, replace = TRUE)` using `cbind`. Add names
+for the rows and the columns.
+* Add the grades of Greta (10 in algebra, 10 in programming and a 9 in calculus)
+to the `grades` matrix from the previous exercises. Use the `rbind` function.
+* Subset the grades of Hedda and Greta in algebra and calculus.
+* Find the worst grade for each student using `apply`.
+* Find the mean grade for each subject. Also find the mean grade for each
+student.
+* Let's extract the first column of the `grades` matrix. Compare the output
+of `grades[, 1]` with the output of `grades[, 1, drop = FALSE]`. What's the
+difference?
+* Let's say that you have a grade "C" if your numeric grade is smaller than 5,
+a "B" if your grade is in the range $[5,8)$, and an "A" if your grade is equal
+or greater than 8. Transform the `grades` matrix into a character matrix using
+conditional indexing (That is, you may use things like 
+`grades[grades == 0] <- "zero"`).
 
 ## Factors
 A factor is a data type used to store categorical variables. This is an important
@@ -590,21 +661,20 @@ cat(grades_df[1, 2], "||", grades_df$grade[grades_df$name == "John"])
 # Note that we don't have to use grades_df$name!
 subset(grades_df, name == "John")
 
-# In the same spirit of subset (avoid using grades_df$...), we have transform and with
+# In the same spirit of subset (to avoid using grades_df$...), we have transform and with
 transform(grades_df, is_clever = (grade >= 7))    # add a new variable
 with(grades_df, sex == "Male")                   # manipulations to a variable
 ```
 
 ```{r}
-# It is common that grades_dfa.frames contain information about several groups. We 
-# can study them separately using split:
-groups = split(grades_df, sex)
+# It is common that grades_dfa.frames contain information about several groups.
+# We can study them separately using split:
+groups <- split(grades_df, sex)
 groups$Female
 groups$Male
 # Indeed, we can focus on a single variable
 with(grades_df, split(grades, sex))
 ```
-
 
 
 ## Lists
@@ -619,16 +689,16 @@ It may seem that lists are just a particular case of data frames, but lists are
 indeed the most flexible containers in `R`:
 ```{r}
 # We can organize the following data in a list (although a data.frame is better)
-dat = list("students" = c("John", "Albert", "Maria", "Lisa"),
+dat <- list("students" = c("John", "Albert", "Maria", "Lisa"),
            "grades" = sample(1:10, 4, replace = TRUE),
            "sex" = factor(c("Male", "Male", "Female", "Female"))
 )
 print(dat$students)
 
 # ... indeed, we can add anything to a list
-dat$a_df = data.frame(as.data.frame(dat))
-dat$a_matrix = matrix(rnorm(9), ncol = 3)
-dat$another_list = list("x" = c("a", "b"))
+dat$a_df <- data.frame(as.data.frame(dat))
+dat$a_matrix <- matrix(rnorm(9), ncol = 3)
+dat$another_list <- list("x" = c("a", "b"))
 
 print(dat$a_df)
 
@@ -639,9 +709,43 @@ dat["students"]            # A list! check both with class
 all(dat["students"]$students == dat[["students"]])
 ```
 
+## Programming Challenges (V)
+* Transform the `grades` matrix from *Programming Challenges (IV)* into
+a data frame, also including information about the sex of the student. The 
+resulting data frame should have columns `name`, `algebra`, `programming`,
+`calculus` and `sex`. The type of the columns should be numerical for the grades,
+character for `name`, and factor for `sex`.
+* Compute the mean grades for `males` and also for `females`.
+* Use `subset` for finding out which students have an algebra grade greater 
+than 7. 
+* Use `transform` to create a new column named `average` with the average
+grades.
+* Consider the next data frame. Create it, save it as the variable `df`, and calculate the percentage of unemployed (in this case, 50%).
+
+| names  | working |
+|--------|---------|
+| John   | no      |
+| Albert | yes     |
+| Maria  | yes     |
+| Lisa   | no      |
+
+* If `x <- 1:3`, `y <- c('a', 'b')` and `l <- list(alpha = x, beta = y)`, what
+is the result of `l[2]`? What about `l[[2]]`? Is there any difference? Can you
+write down other three ways to access this data?
+* What happens if (using the list from the previous exercise) you execute
+`l$alpha <- NULL`?  . Try to predict before testing the code.
+* Use `unlist` to compute the sum of the elements from 
+`l <- list ("x"=5, "y"=10, "z"=15)`.
+* Transform the `grades` matrix from *Programming Challenges (IV)* into
+a list, also including information about the sex of the student. The 
+resulting list should have items named `name`, `algebra`, `programming`,
+`calculus` and `sex`. 
+* Transform the list from the previous exercise into a data frame. Then, transform
+back the resulting data frame into another list.
+
 ## Formulas
 Sometimes you may find funny expressions like `y ~ x`. This is called a 
-**formula**
+**formula**.
 ```{r formula}
 class(y ~ x)
 class(y ~ x + z)
@@ -658,6 +762,7 @@ These are the basics. With that in mind, you can actually understand
 the meaning of most basic `R` expressions involving formulas. If you are 
 interested in understanding them better, you may read [this tutorial](https://www.datacamp.com/community/tutorials/r-formula-tutorial).
 Otherwise, you can safely move on.
+
 
 ## Functions
 Functions in `R` are **first class functions**, which means that they are 
@@ -701,9 +806,20 @@ print(x)         # x is unchanged
 ## Other classes
 `R` permits object oriented programming. If you don't know what this means, 
 don't worry, we will discuss it in the programming section. Basically, it implies
-that we can define our custom data types We mention it here because
+that we can define our custom data types. We mention it here because
 next section introduces packages, aka "third party code". Therefore, it is 
 possible that you may encounter some strange classes when using `class`...
+
+
+## Programming Challenges (VI)
+* What does the function `my_sum <- function(x, y) { z <- x + y }` return? 
+Can you improve the previous function?
+* Create the function `is_in(element, vector)` that returns TRUE if 
+`element` is in `vector`.
+* Create the function `count_elem(elem, vector)` that returns how many times 
+`elem` appears inside `vector`.
+* Create a function that given a matrix, it returns the matrix with all the
+zeros changed to `Inf`.
 
 # Packages
 A lot of the `R` power comes from **packages**. A package is a collection of 
@@ -851,9 +967,9 @@ foo()
 
 For more about functions and scoping, see [H. Wickhams' "Advanced R" book](http://adv-r.had.co.nz/Functions.html).
 
-## conditionals
+## Conditionals
 ```{r}
-x = sample(1:10, 1)
+x <- sample(1:10, 1)
 if (x < 5) {
   print("The number is < 5")
 } else if (x == 5){
@@ -862,55 +978,55 @@ if (x < 5) {
   print("The number is > 5")
 }
 
-veredict = ifelse(x > 5, "Big number", "Small number")
+veredict <- ifelse(x > 5, "Big number", "Small number")
 print(veredict)
 ```
-## for loops
+## For loops
 ```{r}
 # Let's count the number of even numbers...
 # The C way of doing it...
 set.seed(1)
-xs = sample(1:10, size = 10, replace = TRUE)   # some random numbers
-nb_even = 0
+xs <- sample(1:10, size = 10, replace = TRUE)   # some random numbers
+nb_even <- 0
 for (i in 1:length(xs)) {
   if (xs[[i]] %% 2 == 0) {
-    nb_even = nb_even + 1
+    nb_even <- nb_even + 1
   }
 }
 cat("nb_even = ", nb_even, "\n")
 
 # A slightly better way... but still in C-like style
-nb_even = 0
+nb_even <- 0
 for (i in seq_along(xs)) {
   if (xs[[i]] %% 2 == 0) {
-    nb_even = nb_even + 1
+    nb_even <- nb_even + 1
   }
 }
 cat("nb_even = ", nb_even, "\n")
 
 # A more R-like for loop
-nb_even = 0
+nb_even <- 0
 for (x in xs) {           # Niceeeeeee
   if (x %% 2 == 0) {
-    nb_even = nb_even + 1
+    nb_even <- nb_even + 1
   }
 }
 cat("nb_even = ", nb_even, "\n")
 
 # But the reaaaally cool way of doing it is avoiding loops. 
 # Can you understand why this works?
-nb_even = sum(xs %% 2 == 0)
+nb_even <- sum(xs %% 2 == 0)
 cat("nb_even = ", nb_even, "\n")
 ```
 
 ```{r}
 # Another problem: for each x in xs, generate a random vector of length x.
 # With loops
-xs = sample(1:3, size = 4, replace = TRUE)  # A new vector with smaller numbers
-result = list()
+xs <- sample(1:3, size = 4, replace = TRUE)  # A new vector with smaller numbers
+result <- list()
 set.seed(1)
 for (i in seq_along(xs)) {                  # in this case, we really need the i
-  result[[i]] = runif(n = xs[[i]])
+  result[[i]] <- runif(n = xs[[i]])
 }
 print(result)
 
@@ -925,20 +1041,13 @@ to write **implicit loops**, which are generally **faster than the explicit loop
 If you want to learn more (highly recommended)
 see [The R apply family](https://www.datacamp.com/community/tutorials/r-tutorial-apply-family).
 
-<!-- #### Exercise. Remember the `with` function in the data frames section? we had... -->
-<!-- ```{r} -->
-<!-- with(grades_df, split(grades, sex)) -->
-<!-- ``` -->
-<!-- Use `lapply` to compute the mean grade of each sex. -->
-
-
 ## Repeat and while
 ```{r}
 set.seed(10)
-steps_to_succeed = 0
+steps_to_succeed <- 0
 repeat {
   number <- runif(n = 1)
-  steps_to_succeed = steps_to_succeed + 1
+  steps_to_succeed <- steps_to_succeed + 1
   if (number  > 0.7) {
     break
   }
@@ -946,13 +1055,36 @@ repeat {
 print(steps_to_succeed)
 
 set.seed(10)
-steps_to_succeed = 1
+steps_to_succeed <- 1
 while (runif(n = 1) <= 0.7) {
-  steps_to_succeed = steps_to_succeed + 1
+  steps_to_succeed <- steps_to_succeed + 1
 }
 print(steps_to_succeed)
 
 ```
+
+## Programming Challenges (VII)
+* Create a `list()` with ten elements using a for loop. To generate the i-th 
+element (the element in the i-th position of the list) do the following:
+    1. Generate a random vector of length i using `runif`.
+    2. If the mean of the random vector is greater than 0.5, then store in the
+    i-th element of the list the character `"it is greater!"`. If not, store 
+    `"it is not greater"`.
+* Repeat the previous exercise avoiding the use of the for loop by means of 
+`lapply`. You surely will have to create a custom function first.
+* Imagine that you want to generate two different random numbers from the 
+set `c(1, 2, 3)`. That is, valid results are `c(1, 2)`, `c(3,1)`, `c(3,2)`, etc.
+Invalid results would be `c(1, 1)`, `c(2, 2)` and `c(3, 3`). We can achieve this
+quite easily by using `sample(1:3, 2)`; however we shall implement it using 3
+different approaches `for` loops, `repeat` and `while` (just for practicing!, 
+the `sample` approach is better). To that end, follow the next algorithm:
+    1. Generate a first number using `sample(1:3, 1)`. 
+    2. Generate a second random number.
+    3. If the two numbers are the same, go back to 1.
+* Remember the `with` function in the data frames section? we had
+`with(grades_df, split(grades, sex))`. Use `lapply` to compute the mean grade 
+of each sex. 
+
 
 ## Object oriented programming
 Yes! As already mentioned, `R` also permits Object Oriented Programming (OOP).
@@ -965,7 +1097,7 @@ Indeed, `R` has three object oriented systems:
 We shall only introduce the very basic concepts of the S3 system. To go deeper 
 in `R` OOP, see  this amazing [OOP field guide](http://adv-r.had.co.nz/OO-essentials.html).
 
-Now let's introduce S3. S3 is quite primitive and lacks a formal definition, but
+S3 is quite primitive and lacks a formal definition, but
 it permits to create custom classes. Indeed, it is surprisingly easy...
 
 ```{r}
@@ -988,7 +1120,7 @@ method should use:
 ```{r}
 # A normal vector with the same numbers of x
 y <- as.numeric(x)
-# write a  specialized version of print. So easy!
+# write a specialized version of print. So easy!
 print.mega_cool_vector <- function(x, ...) {
    cat("This is a super cool vector", x, "\n")
 }
@@ -1001,6 +1133,11 @@ print(x)
 A last word about S3. You may wonder what happens when a generic does not find
 a suitable specialized version. In that case, a default version is called which
 is noted as `xxx.default`, e.g., `print.default`.
+
+## Programming Challenges (VIII)
+* Implement a specialized implementation of `mean` for the class 
+`mega_cool_vector`. This function should not only compute the mean, but it should
+also print on screen `"The mega cool mean is [result]"`.
 
 # Simple graphics in `R`
 There are three main ways you can create a graphic in R:
@@ -1092,7 +1229,7 @@ lines(x, y2, type = "b", col = 2, lty = 2, pch = 2)
 The following figures shows the possible values for `lty`:
 
 ```{r}
-plot(0:7, 0:7, type="n", xlab = "", ylab = "", axes = FALSE)
+plot(0:7, 0:7, type = "n", xlab = "", ylab = "", axes = FALSE)
 box()
 for (lty in 1:6) {
   abline(h = lty, lty = lty)
@@ -1104,59 +1241,62 @@ This other figure shows the possible values for `pch`:
 
 ```{r, echo=FALSE}
 # Make an empty chart
-plot(1, 1, xlim=c(1,5.5), ylim=c(0,6), type="n", ann=FALSE, axes=FALSE)
+plot(1, 1, xlim = c(1, 5.5), ylim = c(0, 6), type = "n",
+     ann = FALSE, axes = FALSE)
 box()
 
 # Plot digits 0-4 with increasing size and color
 #text(1:5, rep(6,5), labels=c(0:4), cex=1:5, col=1:5)
 
 # Plot symbols 0-4 with increasing size and color
-points(1:5, rep(5,5), cex=2, col=1:5, pch=0:4, bg=1:5)
-text((1:5)+0.4, rep(5,5), cex=0.6, (0:4))
+points(1:5, rep(5,5), cex = 2, col = 1:5, pch = 0:4, bg = 1:5)
+text((1:5) + 0.4, rep(5, 5), cex = 0.6, (0:4))
 
 # Plot symbols 5-9 with labels
-points(1:5, rep(4,5), cex=2, pch=(5:9), col=6:10, bg = 6:10)
-text((1:5)+0.4, rep(4,5), cex=0.6, (5:9))
+points(1:5, rep(4, 5), cex = 2, pch = (5:9), col = 6:10, bg = 6:10)
+text((1:5) + 0.4, rep(4, 5), cex = 0.6, (5:9))
 
 # Plot symbols 10-14 with labels
-points(1:5, rep(3,5), cex=2, pch=(10:14), col=10:14, bg=10:14)
-text((1:5)+0.4, rep(3,5), cex=0.6, (10:14))
+points(1:5, rep(3, 5), cex = 2, pch = (10:14), col = 10:14, bg = 10:14)
+text((1:5) + 0.4, rep(3, 5), cex = 0.6, (10:14))
 
 # Plot symbols 15-19 with labels
-points(1:5, rep(2,5), cex=2, pch=(15:19), col=15:20, bg=15:20)
-text((1:5)+0.4, rep(2,5), cex=0.6, (15:19))
+points(1:5, rep(2, 5), cex = 2, pch = (15:19), col = 15:20, bg = 15:20)
+text((1:5) + 0.4, rep(2, 5), cex = 0.6, (15:19))
 
 # Plot symbols 20-25 with labels
-points((1:6)*0.8+0.2, rep(1,6), cex=2, pch=(20:25), col=20:25, bg=20:25)
-text((1:6)*0.8+0.5, rep(1,6), cex=0.6, (20:25))
+points((1:6) * 0.8 + 0.2, rep(1,6), cex = 2,  
+       pch = (20:25), col = 20:25, bg = 20:25)
+text((1:6) * 0.8 + 0.5, rep(1, 6), cex = 0.6, (20:25))
 ```
 ```{r, eval=FALSE, echo=FALSE}
 # without bg version
 # Make an empty chart
-plot(1, 1, xlim=c(1,5.5), ylim=c(0,6), type="n", ann=FALSE, axes=FALSE)
+plot(1, 1, xlim = c(1, 5.5), ylim = c(0, 6), type = "n",
+     ann = FALSE, axes = FALSE)
 box()
 
 # Plot digits 0-4 with increasing size and color
 #text(1:5, rep(6,5), labels=c(0:4), cex=1:5, col=1:5)
 
 # Plot symbols 0-4 with increasing size and color
-points(1:5, rep(5,5), cex=2, col=1:5, pch=0:4)
+points(1:5, rep(5, 5), cex = 2, col = 1:5, pch = 0:4)
 text((1:5)+0.4, rep(5,5), cex=0.6, (0:4))
 
 # Plot symbols 5-9 with labels
-points(1:5, rep(4,5), cex=2, pch=(5:9), col=6:10)
+points(1:5, rep(4, 5), cex = 2, pch = (5:9), col = 6:10)
 text((1:5)+0.4, rep(4,5), cex=0.6, (5:9))
 
 # Plot symbols 10-14 with labels
-points(1:5, rep(3,5), cex=2, pch=(10:14), col=10:14)
-text((1:5)+0.4, rep(3,5), cex=0.6, (10:14))
+points(1:5, rep(3, 5), cex = 2, pch = (10:14), col = 10:14)
+text((1:5) + 0.4, rep(3, 5), cex = 0.6, (10:14))
 
 # Plot symbols 15-19 with labels
-points(1:5, rep(2,5), cex=2, pch=(15:19), col=15:20)
-text((1:5)+0.4, rep(2,5), cex=0.6, (15:19))
+points(1:5, rep(2, 5), cex = 2, pch = (15:19), col = 15:20)
+text((1:5) + 0.4, rep(2, 5), cex = 0.6, (15:19))
 
 # Plot symbols 20-25 with labels
-points((1:6)*0.8+0.2, rep(1,6), cex=2, pch=(20:25), col=20:25)
+points((1:6) * 0.8 + 0.2, rep(1, 6), cex = 2, pch = (20:25), col = 20:25)
 text((1:6)*0.8+0.5, rep(1,6), cex=0.6, (20:25))
 
 ```
@@ -1219,7 +1359,8 @@ legend("topleft", lty = c(1:2, 4), pch = c(1:2, NA), col = 1:3, bty = "n",
 # have place two plots in the same graphic device
 old_par = par(mfrow = c(1, 2))   # mfrow = c(nb_rows, nb_columns))
 plot(x, y2, xlab = "x", ylab = "exp(x)", main = "First function", type = "b")
-plot(x, y, xlab = "x", ylab = "exp(0.5 * x)", main = "Second function", type = "b")
+plot(x, y, xlab = "x", ylab = "exp(0.5 * x)", 
+     main = "Second function", type = "b")
 par(old_par)                     # reset old parameters
 ```
 
@@ -1246,9 +1387,9 @@ Scatterplots can be constructed using `plot`, `lines` and `points`. However,
 your scatterplots may benefit from using filled `pch`s with transparency:
 ```{r}
 # read some synthetic dataset
-xxx = rnorm(5000, sd = 0.5)
-yyy = -1 + xxx + rnorm(length(xxx), sd = 0.25)
-dat = data.frame(x = xxx, y = yyy)
+xxx <- rnorm(5000, sd = 0.5)
+yyy <- -1 + xxx + rnorm(length(xxx), sd = 0.25)
+dat <- data.frame(x = xxx, y = yyy)
 
 # It is difficult to tell if there are some regions with more density of points than others
 with(dat, 
@@ -1256,7 +1397,7 @@ with(dat,
 )
   
 # With transparency it is clear that around x = [-0.5, 0.5] there are lots of points
-transparent_black = rgb(0, 0, 0, max = 255, alpha = 20)
+transparent_black <- rgb(0, 0, 0, max = 255, alpha = 20)
 with(dat, 
      plot(x, y, pch = 16, col = transparent_black)
 )
@@ -1290,7 +1431,7 @@ barplot(counts, main = "Cars by Gears and VS",
         legend = rownames(counts)) 
 
 # If you want to put the VS in the xlabel, transpose counts and repeat
-counts_t = t(counts)
+counts_t <- t(counts)
 barplot(counts_t, main = "Cars by Gears and VS",
         xlab = "Number of VS", col = 2:4, 
         legend = rownames(counts_t)) 
@@ -1312,7 +1453,8 @@ Use bar charts instead.  If you still want to try them, see `?pie`.
 # Just the basics
 boxplot(mtcars$mpg, xlab = "Number of Cylinders", ylab = "Miles Per Gallon")
 # Or using with, to avoid using $
-with(mtcars, boxplot(mpg), xlab = "Number of Cylinders", ylab = "Miles Per Gallon")
+with(mtcars, boxplot(mpg), xlab = "Number of Cylinders",
+     ylab = "Miles Per Gallon")
 # You can also use formulas to produce a boxplot by each independent factor (here is cyl)
 boxplot(mpg ~ cyl, data = mtcars, xlab = "Number of Cylinders",
         ylab = "Miles Per Gallon")
@@ -1339,12 +1481,27 @@ with(mtcars,
 
 ```
 
+## Programming Challenges (IX)
+* Load the `cars` data and plot a scatterplot of it. Change the color to blue, 
+and use a plotting character (`pch`) different from the default value. Finally,
+change the x-label, y-label and title of the plot.
+* Suppose you want to highlight results from the previous plot; let's say, you
+want to identify the point with the largest speed. First find which datum has
+the larger speed (you should get `speed = 25`, `dist = 85`). Use the `points` function to add a new point to the previous plot, using the red color to identify
+it.
+* Using the `iris` dataset, make a boxplot of `Sepal.Width` stratified by 
+`Species`.
+* Use a barplot to count the number of flowers within each species in the 
+`iris` dataset.
 
 # Reading and saving data
 `R` is able to load/save data from/to TXT, CSV, HTML, Excel and other common files. 
 It is also able to scrap webs or connect to databases for reading information.
 Here we only cover the most basic file formats: TXT and CSV files. For a nice
 introduction to other formats, see [this tutorial](https://www.datacamp.com/community/tutorials/r-data-import-tutorial).
+
+In this section, we use several files stored under the `data` folder of the
+GitHub repository.
 
 ## TXT files
 If your data is stored in some .txt or tab-delimited file, you can easily import
@@ -1389,8 +1546,8 @@ cat data/basic_bad.txt
 We can read it with
 ```{r}
 df <- read.table("data/basic_bad.txt", header = TRUE, 
-                 skip = 2,                                # skip the first two rows
-                 comment.char = "~",                      # commentaries start with ~
+                 skip = 2,                  # skip the first two rows
+                 comment.char = "~",        # commentaries start with ~
 )
 df
 ```
@@ -1433,3 +1590,9 @@ load:
 # Unless you have meaningful row names, set row.names to FALSE
 write.table(df, "data/new_file.csv", row.names = FALSE, sep = ";", dec = ",")
 ```
+
+## Programming Challenges (X)
+* Try to read the files 'iris.csv', 'iris_2.csv', 'iris_3.csv', 'iris.tsv' and
+'iris_2.tsv' from the data folder. It is a good idea to first open the data
+with a text editor to see the delimiters and the format of the file.
+* Save the `iris` dataset using both CSV and TXT files.
