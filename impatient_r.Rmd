@@ -1,7 +1,7 @@
 ---
 title: "R for the impatient"
 author: "Constantino A. García"
-date: "28 August 2019"
+date: "5 September 2021"
 output: 
   html_document: 
     keep_md: yes
@@ -71,7 +71,7 @@ figure:
 Although the best way to learn it is just using it I would recommend to 
 to spend a few minutes looking around. Specially, have a look to 
 `tools > global options`. Also, you may find helpful this
-[webinar series](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-part-1/). 
+[webinar series](https://www.rstudio.com/collections/rstudio-essentials/). 
 
 # An overgrown calculator
 The "Hello world" of an interactive language is using it as a calculator. Enter
@@ -1154,10 +1154,8 @@ basics).
 The most popular approach nowadays is `ggplot2`. It has a steep learning curve,
 but it is worthwhile. My suggestion? Read on for an introduction to `R` graphics
 and then read the excellent [stat545](http://stat545.com) materials about 
-`ggplot2`: 
-[part 1](https://vincenzocoia.github.io/teaching/stat545/cm006-notes_and_exercises) 
-and 
-[part 2](https://vincenzocoia.github.io/teaching/stat545/cm007-notes_and_exercises.html).
+`ggplot2`:
+[ggplot tutorial](https://github.com/jennybc/ggplot2-tutorial).
 
 ## Base `R`
 We have already illustrated `R` graphics in the **overgrown calculator section**.
@@ -1566,7 +1564,7 @@ cat data/new_file.txt
 ``` 
 
 
-## CSV files.
+## CSV files
 `R` provides the `read.csv` and `read.csv2` files. However, they are based on 
 `read.table` and I tend to find easier to just use the latter. All we have to
 do is setting `sep` (separator) and `dec` (the character for decimal points) 
